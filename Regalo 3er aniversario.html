@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Léeme siempre que me extrañes</title>
+    <style>
+        body {
+            font-family: "Georgia", serif;
+            font-style: italic;
+            background-color: #ffe4e1;
+            background-image: linear-gradient(45deg, rgba(255, 192, 203, 0.5) 25%, rgba(255, 255, 255, 0.5) 25%), 
+                              linear-gradient(45deg, rgba(255, 192, 203, 0.5) 25%, rgba(255, 255, 255, 0.5) 25%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6f61;
+            margin-bottom: 10px;
+        }
+        .card {
+            background-color: #fff;
+            border: 3px solid #ff6f61;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .card:before, .card:after {
+            content: "❤️";
+            position: absolute;
+            font-size: 3rem;
+            color: rgba(255, 182, 193, 0.6);
+        }
+        .card:before {
+            top: -20px;
+            left: -20px;
+            transform: rotate(-30deg);
+        }
+        .card:after {
+            bottom: -20px;
+            right: -20px;
+            transform: rotate(30deg);
+        }
+        button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #e65b54;
+            transform: scale(1.05);
+        }
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 192, 203, 0.8);
+            clip-path: polygon(50% 0%, 61% 20%, 80% 20%, 100% 40%, 100% 65%, 50% 100%, 0% 65%, 0% 40%, 20% 20%, 39% 20%);
+            animation: float 4s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-500px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>❤️🐷Léeme siempre que me extrañes🐷❤️</h1>
+    <div class="card" id="loveLetter">
+        Haz clic en el botón para leer una carta de amor. ❤️
+    </div>
+    <button onclick="generateLoveLetter()">❤️Toca aqui mi chanchita hermosa❤️</button>
+
+    <div class="floating-hearts">
+        <div class="heart" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="heart" style="left: 25%; animation-delay: 1s;"></div>
+        <div class="heart" style="left: 50%; animation-delay: 2s;"></div>
+        <div class="heart" style="left: 75%; animation-delay: 3s;"></div>
+        <div class="heart" style="left: 90%; animation-delay: 4s;"></div>
+    </div>
+
+    <script>
+        const letters = [
+           "Mi amor, cada día a tu lado es un nuevo capítulo de felicidad. Eres mi inspiración y mi refugio. ❤️",
+        "Querida, tu sonrisa ilumina incluso mis días más oscuros. Gracias por ser la luz de mi vida. 💕",
+        "Eres mi sueño hecho realidad, mi compañera perfecta. No podría pedir nada más que tu amor. 🌹",
+        "Cada momento contigo es un regalo que atesoro profundamente. Te amo con todo mi corazón. 💖",
+        "Mi vida cambió el día que te conocí. Eres mi todo y siempre lo serás. Gracias por existir. 🥰",
+        "Yisela, en tus ojos veo mi hogar, y en tus abrazos encuentro el universo. ❤️",
+        "Nuestro amor es un jardín eterno, lleno de flores que nunca dejarán de florecer. 🌺",
+        "Dos años y medio contigo, una eternidad en mi corazón. 💕",
+        "Eres el faro que guía mis pasos en la oscuridad. Siempre serás mi luz. 🌟",
+        "Gracias, Yisela, por llenar mi vida de colores y sueños compartidos. 🎨",
+        "Cada beso tuyo es una promesa, cada abrazo, un refugio. Te amo profundamente. 💖",
+        "Caminar a tu lado es caminar hacia la felicidad misma. ❤️",
+        "Eres la melodía que da ritmo a mi vida, mi sinfonía de amor. 🎶",
+        "Mi corazón es tuyo, Yisela, ahora y siempre. 🥰",
+        "Dos años y medio contigo, pero siento que apenas estamos comenzando. 💞",
+        "Tu amor es el regalo más hermoso que jamás podría recibir. 🎁",
+        "Me enamoro de ti cada día, como si fuera la primera vez. 🌹",
+        "Tus ojos, Yisela, son el espejo donde veo un futuro lleno de amor. 👀",
+        "Eres mi musa, mi inspiración, mi razón para ser feliz. 📝",
+        "Nuestro amor es un fuego que nunca se apaga, una llama eterna. 🔥",
+        "Por dos años y medio hemos sido uno, y quiero que sea así por siempre. 💕",
+        "Cada instante contigo es un tesoro que guardo en lo más profundo de mi corazón. 💎",
+        "Cuando estoy contigo, todo el mundo desaparece, y solo existimos tú y yo. 🌌",
+        "Tu risa, Yisela, es la banda sonora de mis días más felices. 😂",
+        "Eres mi refugio en la tormenta, mi calma en el caos. 🏡",
+        "El amor que siento por ti es más grande que las palabras, más profundo que el océano. 🌊",
+        "Tu sonrisa ilumina mi vida de una forma que no puedo describir. 🌟",
+        "Eres mi sol, mi luna y todas mis estrellas, Yisela. 🌞🌙✨",
+        "Cada vez que dices mi nombre, mi corazón late más rápido. ❤️",
+        "Gracias por cada momento juntos, por cada abrazo, por cada risa. 💑",
+        "Tu amor me hace ser mejor cada día. Eres mi razón para seguir adelante. 💪",
+        "Dos años y medio parecen poco, pero nuestro amor trasciende el tiempo. ⏳",
+        "Si pudiera elegir de nuevo, siempre te elegiría a ti. 🥰",
+        "Tu presencia en mi vida es el regalo más hermoso que jamás podría desear. 🎁",
+        "Eres el poema más hermoso que jamás podría escribir. ✍️",
+        "A tu lado, cada día es una aventura llena de amor y magia. ✨",
+        "Eres la reina de mi corazón, mi amor eterno. 👑",
+        "Dos años y medio son solo el principio de nuestro hermoso viaje. 🚀",
+        "Cada momento contigo es un recuerdo que guardo con amor. 🕰️",
+        "Eres el arcoíris que aparece después de cada tormenta en mi vida. 🌈",
+        "Gracias, Yisela, por ser mi compañera, mi amor y mi mejor amiga. ❤️",
+        "Si el amor tuviera un nombre, el tuyo estaría grabado en cada rincón. 💌",
+        "Eres mi paz, mi alegría, mi todo. Te amo más de lo que las palabras pueden expresar. 💖",
+        "Tu amor es la brújula que siempre me guía hacia la felicidad. 🧭",
+        "Contigo, todo tiene sentido. Eres mi amor, mi vida, mi universo. 🌌",
+        "Tus abrazos son mi refugio, y tus besos, mi paraíso. 🌴",
+        "Gracias por ser tú, por ser mi compañera y mi razón de ser. 💕",
+        "El amor que siento por ti es infinito, como el cielo estrellado. 🌠",
+        "Tu amor me hace más fuerte, más feliz, más completo. ❤️",
+        "Eres mi mayor bendición, mi mayor alegría, mi amor eterno. 💖",
+            // (Puedes agregar aquí más cartas como en el ejemplo anterior)
+        ];
+
+        function generateLoveLetter() {
+            const randomIndex = Math.floor(Math.random() * letters.length);
+            const loveLetter = letters[randomIndex];
+            document.getElementById("loveLetter").textContent = loveLetter;
+        }
+    </script>
+</body>
+</html>
